@@ -8,7 +8,7 @@
     <licenseUrl>https://raw.githubusercontent.com/MrHant/tiver-cuckoo/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/MrHant/tiver-cuckoo</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description></description>
+    <description>Lazy wrappers for Selenium interfaces.</description>
     <dependencies />
   </metadata>
   <files>

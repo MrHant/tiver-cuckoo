@@ -1,5 +1,7 @@
 # tiver-cuckoo
 
+Lazy wrappers for Selenium interfaces.
+
 ## Branch status
 
 Branch | Package | Code style | CI
