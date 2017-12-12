@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Tiver.Cuckoo</id>
+    <version>0.0.1</version>
+    <authors>Artyom Silivonchik</authors>
+    <owners>Artyom Silivonchik</owners>
+    <licenseUrl>https://raw.githubusercontent.com/MrHant/tiver-cuckoo/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/MrHant/tiver-cuckoo</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description></description>
+    <dependencies />
+  </metadata>
+  <files>
+    <file src="..\Tiver.Cuckoo\bin\Release\Tiver.Cuckoo.dll" target="lib\net45" />
+  </files>
+</package>
