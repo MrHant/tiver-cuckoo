@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
+using Tiver.Fowl.Waiting.Configuration;
 
 namespace Tiver.Cuckoo
 {
@@ -11,11 +13,17 @@ namespace Tiver.Cuckoo
             _driver = driver;
         }
 
+        public LazyWebDriver(IWebDriver driver, IWaitConfiguration waitConfiguration)
+            : this(driver)
+        {
+            _waitConfiguration = waitConfiguration;
+        }
+
         // Lazy find
 
         public IWebElement FindElement(By by)
         {
-            return new LazyElement(WrappedDriver, by);
+            return new LazyElement(WrappedDriver, by, _waitConfiguration);
         }
 
         // Disable find elements
@@ -86,5 +94,6 @@ namespace Tiver.Cuckoo
         public ReadOnlyCollection<string> WindowHandles => _driver.WindowHandles;
 
         private readonly IWebDriver _driver;
+        private readonly IWaitConfiguration _waitConfiguration;
     }
 }

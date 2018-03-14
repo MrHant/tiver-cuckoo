@@ -4,15 +4,17 @@ using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using Tiver.Fowl.Waiting;
+using Tiver.Fowl.Waiting.Configuration;
 
 namespace Tiver.Cuckoo
 {
     public class LazyElement : IWebElement, IWrapsElement
     {
-        public LazyElement(IWebDriver driver, By locator)
+        public LazyElement(IWebDriver driver, By locator, IWaitConfiguration waitConfiguration = null)
         {
             _driver = driver;
             _locator = locator;
+            _waitConfiguration = waitConfiguration;
         }
 
         // Process
@@ -20,13 +22,25 @@ namespace Tiver.Cuckoo
         public TResult Process<TResult>(Func<IWebElement, TResult> function)
         {
             var result = default(TResult);
-            Wait.Until(() =>
-            {
-                result = function.Invoke(WebElement);
-                return true;
-            }, typeof(NoSuchElementException), typeof(StaleElementReferenceException));
+
+            Wait.Until(
+                () =>
+                {
+                    result = function.Invoke(WebElement);
+                    return true;
+                },
+                GetWaitConfiguration());
 
             return result;
+        }
+
+        private IWaitConfiguration GetWaitConfiguration()
+        {
+            var defaultWaitConfiguration =
+                new WaitConfiguration(
+                    typeof(NoSuchElementException),
+                    typeof(StaleElementReferenceException));
+            return _waitConfiguration ?? defaultWaitConfiguration;
         }
 
         public void Process(Action<IWebElement> action)
@@ -99,5 +113,6 @@ namespace Tiver.Cuckoo
         private IWebElement WebElement => _driver.FindElement(_locator);
         private readonly IWebDriver _driver;
         private readonly By _locator;
+        private readonly IWaitConfiguration _waitConfiguration;
     }
 }
